@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:shopeazy/home_screen.dart';
 
 void main() {
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(statusBarColor: Colors.black45),
+  );
   runApp(const ShopEzy());
 }
 
@@ -9,18 +14,6 @@ class ShopEzy extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        // appBar: AppBar(title: const Text('ShopEzy s')),
-        // body: Center(child: Text("Body..")),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [Text("ShopEzy")],
-          ),
-        ),
-        backgroundColor: Colors.orange.shade50,
-      ),
-    );
+    return MaterialApp(debugShowCheckedModeBanner: false, home: HomeScreen());
   }
 }
