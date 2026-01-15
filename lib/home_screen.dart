@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shopeazy/store_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -45,7 +46,11 @@ class HomeScreen extends StatelessWidget {
             SizedBox(height: 50.0),
             TextButton(
               onPressed: () {
-                debugPrint("Button pressed");
+                debugPrint("Button pressed2");
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => StoreScreen()),
+                );
               },
               child: Text(
                 "Open Store",
