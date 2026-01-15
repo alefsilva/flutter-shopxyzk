@@ -15,6 +15,7 @@ class StoreScreen extends StatefulWidget {
 class _StoreScreenState extends State<StoreScreen> {
   final List<Map> _products = [];
   final List<int> _cartItems = [];
+  List<Map> _filteredProducts = [];
 
   @override
   void initState() {
@@ -26,6 +27,7 @@ class _StoreScreenState extends State<StoreScreen> {
       debugPrint("data.runtimeType: ${data.runtimeType}");
       setState(() {
         _products.addAll(data.map((item) => item as Map));
+        _filteredProducts = _products;
       });
     });
   }
@@ -35,10 +37,64 @@ class _StoreScreenState extends State<StoreScreen> {
     return Scaffold(
       backgroundColor: Colors.orange.shade50,
       appBar: appBar(),
+      resizeToAvoidBottomInset: false,
       body: Column(
         children: [
-          Text("Search Bar"),
-          carouselSlider(),
+          Container(
+            margin: EdgeInsets.symmetric(horizontal: 24.0),
+            padding: EdgeInsets.symmetric(horizontal: 16.0),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border.all(color: Colors.grey.shade300),
+              borderRadius: BorderRadius.circular(16.0),
+            ),
+            child: Row(
+              children: [
+                Icon(Icons.search, color: Colors.grey),
+                SizedBox(width: 10.0),
+                Expanded(
+                  child: TextField(
+                    // style: ,
+                    onChanged: (value) {
+                      debugPrint(value);
+                      setState(() {
+                        if (value.isEmpty) {
+                          _filteredProducts = _products;
+                        } else {
+                          _filteredProducts = _products
+                              .where(
+                                (product) => product["title"]
+                                    .toLowerCase()
+                                    .contains(value.toLowerCase()),
+                              )
+                              .toList();
+                        }
+                      });
+                    },
+                    decoration: InputDecoration(
+                      hintText: "Search for products",
+                      border: InputBorder.none,
+                      hintStyle: TextStyle(fontSize: 14.0, color: Colors.grey),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: 16.0),
+          if (_products.isEmpty) ...[
+            Spacer(),
+            SizedBox(
+              width: 50.0,
+              height: 50.0,
+              child: CircularProgressIndicator(
+                strokeWidth: 2.0,
+                color: Colors.orange.shade300,
+              ),
+            ),
+            Spacer(),
+          ] else
+            carouselSlider(),
           TextButton(
             onPressed: () {
               debugPrint("Back to home");
@@ -58,9 +114,17 @@ class _StoreScreenState extends State<StoreScreen> {
   }
 
   CarouselSlider carouselSlider() {
+    if (_filteredProducts.isEmpty) {
+      return CarouselSlider(
+        items: [Center(child: Text("Nenhum produto encontrado."))],
+        options: CarouselOptions(),
+      );
+    }
     return CarouselSlider(
-      items: _products.map((item) {
+      key: ValueKey(_filteredProducts.length),
+      items: _filteredProducts.map((item) {
         return Padding(
+          key: ValueKey(item["id"]),
           padding: EdgeInsets.all(8.0),
           child: Container(
             width: double.infinity,
@@ -182,6 +246,7 @@ class _StoreScreenState extends State<StoreScreen> {
         height: 480,
         enlargeCenterPage: true,
         enlargeFactor: 0.25,
+        enableInfiniteScroll: _filteredProducts.length > 1,
         autoPlay: true,
         autoPlayAnimationDuration: Duration(seconds: 2),
       ),
