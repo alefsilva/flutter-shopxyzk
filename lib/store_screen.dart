@@ -167,7 +167,7 @@ class _StoreScreenState extends State<StoreScreen> {
           ),
         );
       }).toList(),
-      options: CarouselOptions(height: 480),
+      options: CarouselOptions(height: 480, enlargeCenterPage: true),
     );
   }
 
