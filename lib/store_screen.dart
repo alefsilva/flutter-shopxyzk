@@ -16,6 +16,7 @@ class _StoreScreenState extends State<StoreScreen> {
   final List<Map> _products = [];
   final List<int> _cartItems = [];
   List<Map> _filteredProducts = [];
+  int _page = 0;
 
   @override
   void initState() {
@@ -37,6 +38,23 @@ class _StoreScreenState extends State<StoreScreen> {
     return Scaffold(
       backgroundColor: Colors.orange.shade50,
       appBar: appBar(),
+      bottomNavigationBar: BottomNavigationBar(
+        selectedItemColor: Colors.orange,
+        unselectedItemColor: Colors.grey.shade400,
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+        currentIndex: _page,
+        onTap: (value) {
+          debugPrint("value: ${value}");
+          setState(() {
+            _page = value;
+          });
+        },
+        items: [
+          BottomNavigationBarItem(icon: Icon(Icons.swipe), label: "Swipe"),
+          BottomNavigationBarItem(icon: Icon(Icons.list), label: "List"),
+        ],
+      ),
       resizeToAvoidBottomInset: false,
       body: Column(
         children: [
