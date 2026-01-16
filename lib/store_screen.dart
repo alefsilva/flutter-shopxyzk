@@ -96,7 +96,24 @@ class _StoreScreenState extends State<StoreScreen> {
             ),
             padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 16.0),
             margin: EdgeInsets.symmetric(vertical: 1),
-            child: Text(item["title"]),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Image.network(item["image"], width: 100.0, height: 60.0),
+                SizedBox(width: 12.0),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(item["title"]),
+                      SizedBox(height: 5.0),
+                      addCardButton(item),
+                    ],
+                  ),
+                ),
+                productRating(item, showOutOfFive: false),
+              ],
+            ),
           );
         }).toList(),
       ),
@@ -202,31 +219,7 @@ class _StoreScreenState extends State<StoreScreen> {
                 children: [
                   Align(
                     alignment: Alignment.topRight,
-                    child: Container(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 8.0,
-                        vertical: 4.0,
-                      ),
-                      decoration: BoxDecoration(
-                        color: Colors.blueGrey.shade50,
-                        borderRadius: BorderRadius.circular(16.0),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Icon(Icons.star, color: Colors.amber, size: 15.0),
-                          SizedBox(width: 4.0),
-                          Text(
-                            "${item["rating"]["rate"]} out of 5",
-                            style: TextStyle(
-                              fontSize: 13.0,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.grey,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                    child: productRating(item),
                   ),
                   Spacer(),
                   Image.network(item["image"], height: 200.00),
@@ -248,48 +241,7 @@ class _StoreScreenState extends State<StoreScreen> {
                     style: TextStyle(fontSize: 12.0, color: Colors.grey),
                   ),
                   SizedBox(height: 12.0),
-                  Row(
-                    // mainAxisAlignment: MainAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        "\$${item["price"]}",
-                        style: TextStyle(
-                          fontSize: 14.0,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.grey.shade400,
-                        ),
-                      ),
-                      SizedBox(width: 12.0),
-                      InkWell(
-                        onTap: () {
-                          setState(() {
-                            debugPrint("card shopping_cart_rounded tapped");
-                            int id = item["id"];
-                            if (_cartItems.contains(id)) {
-                              _cartItems.remove(id);
-                            } else {
-                              _cartItems.add(id);
-                            }
-                          });
-                        },
-                        child: Container(
-                          padding: EdgeInsets.all(4.0),
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Colors.orange.shade50,
-                          ),
-                          child: Icon(
-                            _cartItems.contains(item["id"])
-                                ? Icons.remove_shopping_cart_rounded
-                                : Icons.shopping_cart_rounded,
-                            size: 20.0,
-                            color: Colors.orange,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                  addCardButton(item),
                 ],
               ),
             ),
@@ -304,6 +256,79 @@ class _StoreScreenState extends State<StoreScreen> {
         autoPlay: true,
         autoPlayAnimationDuration: Duration(seconds: 2),
       ),
+    );
+  }
+
+  Container productRating(
+    Map<dynamic, dynamic> item, {
+    bool showOutOfFive = true,
+  }) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+      decoration: BoxDecoration(
+        color: Colors.blueGrey.shade50,
+        borderRadius: BorderRadius.circular(16.0),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(Icons.star, color: Colors.amber, size: 15.0),
+          SizedBox(width: 4.0),
+          Text(
+            "${item["rating"]["rate"]}${showOutOfFive ? "out of 5" : ""}",
+            style: TextStyle(
+              fontSize: 13.0,
+              fontWeight: FontWeight.w500,
+              color: Colors.grey,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Row addCardButton(Map<dynamic, dynamic> item) {
+    return Row(
+      // mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(
+          "\$${item["price"]}",
+          style: TextStyle(
+            fontSize: 14.0,
+            fontWeight: FontWeight.bold,
+            color: Colors.grey.shade400,
+          ),
+        ),
+        SizedBox(width: 12.0),
+        InkWell(
+          onTap: () {
+            setState(() {
+              debugPrint("card shopping_cart_rounded tapped");
+              int id = item["id"];
+              if (_cartItems.contains(id)) {
+                _cartItems.remove(id);
+              } else {
+                _cartItems.add(id);
+              }
+            });
+          },
+          child: Container(
+            padding: EdgeInsets.all(4.0),
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: Colors.orange.shade50,
+            ),
+            child: Icon(
+              _cartItems.contains(item["id"])
+                  ? Icons.remove_shopping_cart_rounded
+                  : Icons.shopping_cart_rounded,
+              size: 20.0,
+              color: Colors.orange,
+            ),
+          ),
+        ),
+      ],
     );
   }
 
