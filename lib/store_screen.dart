@@ -56,7 +56,7 @@ class _StoreScreenState extends State<StoreScreen> {
             ),
             Spacer(),
           ] else
-            carouselSlider(),
+            _page == 0 ? carouselSlider() : listWidget(),
           TextButton(
             onPressed: () {
               debugPrint("Back to home");
@@ -73,6 +73,10 @@ class _StoreScreenState extends State<StoreScreen> {
         ],
       ),
     );
+  }
+
+  dynamic listWidget() {
+    return Text("List Widget");
   }
 
   Container SearchBar() {
