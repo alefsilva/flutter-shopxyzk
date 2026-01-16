@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
-import 'package:shopeazy/home_screen.dart';
 
 class StoreScreen extends StatefulWidget {
   const StoreScreen({super.key});
@@ -57,26 +56,51 @@ class _StoreScreenState extends State<StoreScreen> {
             Spacer(),
           ] else
             _page == 0 ? carouselSlider() : listWidget(),
-          TextButton(
-            onPressed: () {
-              debugPrint("Back to home");
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => HomeScreen()),
-              );
-            },
-            child: Text(
-              "Back to Home",
-              style: TextStyle(fontSize: 15, color: Colors.orange.shade300),
-            ),
-          ),
+          // TextButton(
+          //   onPressed: () {
+          //     debugPrint("Back to home");
+          //     Navigator.push(
+          //       context,
+          //       MaterialPageRoute(builder: (_) => HomeScreen()),
+          //     );
+          //   },
+          //   child: Text(
+          //     "Back to Home",
+          //     style: TextStyle(fontSize: 15, color: Colors.orange.shade300),
+          //   ),
+          // ),
         ],
       ),
     );
   }
 
   dynamic listWidget() {
-    return Text("List Widget");
+    var items = _products;
+    if (_filteredProducts.isNotEmpty) {
+      items = _filteredProducts;
+    }
+    // return Text("List Widget");
+    return Expanded(
+      child: ListView(
+        children: items.map((item) {
+          return Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.shade300,
+                  blurRadius: 12.0,
+                  offset: Offset(0, 3),
+                ),
+              ],
+            ),
+            padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 16.0),
+            margin: EdgeInsets.symmetric(vertical: 1),
+            child: Text(item["title"]),
+          );
+        }).toList(),
+      ),
+    );
   }
 
   Container SearchBar() {
