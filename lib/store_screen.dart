@@ -335,6 +335,10 @@ class _StoreScreenState extends State<StoreScreen> {
   AppBar appBar() {
     return AppBar(
       backgroundColor: Colors.orange.shade50,
+      surfaceTintColor: Colors.orange.shade50,
+      // surfaceTintColor: Colors.orange.shade100,
+      // scrolledUnderElevation: 5.0,
+      // shadowColor: Colors.grey.shade900,
       elevation: 0.0,
       iconTheme: IconThemeData(color: Color(0xffC8B893)),
       title: Center(
