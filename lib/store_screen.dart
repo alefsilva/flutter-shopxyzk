@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:shopeazy/home_screen.dart';
 
 class StoreScreen extends StatefulWidget {
   const StoreScreen({super.key});
@@ -188,6 +189,15 @@ class _StoreScreenState extends State<StoreScreen> {
     if (_filteredProducts.isEmpty) {
       return renderEmptyResult();
     }
+    double screenWidth = MediaQuery.of(context).size.width;
+    bool isTablet = screenWidth >= 600;
+    bool isDesktop = screenWidth >= 1024;
+    double viewPort = isDesktop
+        ? 0.2
+        : isTablet
+        ? 0.45
+        : 0.8;
+
     return CarouselSlider(
       key: ValueKey(_filteredProducts.length),
       items: _filteredProducts.map((item) {
@@ -251,8 +261,13 @@ class _StoreScreenState extends State<StoreScreen> {
         );
       }).toList(),
       options: CarouselOptions(
-        height: 480,
-        enlargeCenterPage: true,
+        height: isDesktop
+            ? 460
+            : isTablet
+            ? 550
+            : 480,
+        viewportFraction: viewPort,
+        enlargeCenterPage: !isDesktop,
         enlargeFactor: 0.25,
         enableInfiniteScroll: _filteredProducts.length > 1,
         autoPlay: true,
@@ -263,7 +278,7 @@ class _StoreScreenState extends State<StoreScreen> {
 
   CarouselSlider renderEmptyResult() {
     return CarouselSlider(
-      items: [Center(child: Text("Nenhum produto encontrado."))],
+      items: [Text("Nenhum produto encontrado.")],
       options: CarouselOptions(),
     );
   }
@@ -351,17 +366,26 @@ class _StoreScreenState extends State<StoreScreen> {
       elevation: 0.0,
       iconTheme: IconThemeData(color: Color(0xffC8B893)),
       title: Center(
-        child: Text(
-          "ShopEazy",
-          style: TextStyle(
-            fontSize: 24.0,
-            fontWeight: FontWeight.bold,
-            color: Color(0xffc8b893),
+        child: TextButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => HomeScreen()),
+            );
+          },
+          child: Text(
+            "ShopEazy",
+            style: TextStyle(
+              fontSize: 24.0,
+              fontWeight: FontWeight.bold,
+              color: Color(0xffc8b893),
+            ),
           ),
         ),
       ),
       actions: [
         Stack(
+          clipBehavior: Clip.none,
           children: [
             IconButton(
               onPressed: () {
@@ -370,12 +394,14 @@ class _StoreScreenState extends State<StoreScreen> {
               icon: Icon(Icons.shopping_cart_checkout_rounded),
             ),
             Positioned(
-              top: 5.0,
-              right: 5.0,
+              top: 0,
+              right: 28.0,
               child: Container(
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Colors.white,
+                  color: _cartItems.length >= 1
+                      ? Colors.orange.shade400
+                      : Colors.white,
                 ),
                 // padding: EdgeInsets.only(top: 38.0, left: 38.0),
                 padding: EdgeInsets.all(8.0),
@@ -384,7 +410,9 @@ class _StoreScreenState extends State<StoreScreen> {
                   style: TextStyle(
                     fontSize: 12.0,
                     fontWeight: FontWeight.bold,
-                    color: Color(0xffc8b893),
+                    color: _cartItems.length >= 1
+                        ? Colors.black
+                        : Color(0xffc8b893),
                   ),
                 ),
               ),
