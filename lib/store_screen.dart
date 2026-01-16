@@ -38,67 +38,11 @@ class _StoreScreenState extends State<StoreScreen> {
     return Scaffold(
       backgroundColor: Colors.orange.shade50,
       appBar: appBar(),
-      bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: Colors.orange,
-        unselectedItemColor: Colors.grey.shade400,
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        currentIndex: _page,
-        onTap: (value) {
-          debugPrint("value: ${value}");
-          setState(() {
-            _page = value;
-          });
-        },
-        items: [
-          BottomNavigationBarItem(icon: Icon(Icons.swipe), label: "Swipe"),
-          BottomNavigationBarItem(icon: Icon(Icons.list), label: "List"),
-        ],
-      ),
+      bottomNavigationBar: bottomNavigationBar(),
       resizeToAvoidBottomInset: false,
       body: Column(
         children: [
-          Container(
-            margin: EdgeInsets.symmetric(horizontal: 24.0),
-            padding: EdgeInsets.symmetric(horizontal: 16.0),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              border: Border.all(color: Colors.grey.shade300),
-              borderRadius: BorderRadius.circular(16.0),
-            ),
-            child: Row(
-              children: [
-                Icon(Icons.search, color: Colors.grey),
-                SizedBox(width: 10.0),
-                Expanded(
-                  child: TextField(
-                    // style: ,
-                    onChanged: (value) {
-                      debugPrint(value);
-                      setState(() {
-                        if (value.isEmpty) {
-                          _filteredProducts = _products;
-                        } else {
-                          _filteredProducts = _products
-                              .where(
-                                (product) => product["title"]
-                                    .toLowerCase()
-                                    .contains(value.toLowerCase()),
-                              )
-                              .toList();
-                        }
-                      });
-                    },
-                    decoration: InputDecoration(
-                      hintText: "Search for products",
-                      border: InputBorder.none,
-                      hintStyle: TextStyle(fontSize: 14.0, color: Colors.grey),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
+          SearchBar(),
           SizedBox(height: 16.0),
           if (_products.isEmpty) ...[
             Spacer(),
@@ -128,6 +72,70 @@ class _StoreScreenState extends State<StoreScreen> {
           ),
         ],
       ),
+    );
+  }
+
+  Container SearchBar() {
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 24.0),
+      padding: EdgeInsets.symmetric(horizontal: 16.0),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border.all(color: Colors.grey.shade300),
+        borderRadius: BorderRadius.circular(16.0),
+      ),
+      child: Row(
+        children: [
+          Icon(Icons.search, color: Colors.grey),
+          SizedBox(width: 10.0),
+          Expanded(
+            child: TextField(
+              // style: ,
+              onChanged: (value) {
+                debugPrint(value);
+                setState(() {
+                  if (value.isEmpty) {
+                    _filteredProducts = _products;
+                  } else {
+                    _filteredProducts = _products
+                        .where(
+                          (product) => product["title"].toLowerCase().contains(
+                            value.toLowerCase(),
+                          ),
+                        )
+                        .toList();
+                  }
+                });
+              },
+              decoration: InputDecoration(
+                hintText: "Search for products",
+                border: InputBorder.none,
+                hintStyle: TextStyle(fontSize: 14.0, color: Colors.grey),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  BottomNavigationBar bottomNavigationBar() {
+    return BottomNavigationBar(
+      selectedItemColor: Colors.orange,
+      unselectedItemColor: Colors.grey.shade400,
+      showSelectedLabels: false,
+      showUnselectedLabels: false,
+      currentIndex: _page,
+      onTap: (value) {
+        debugPrint("value: ${value}");
+        setState(() {
+          _page = value;
+        });
+      },
+      items: [
+        BottomNavigationBarItem(icon: Icon(Icons.swipe), label: "Swipe"),
+        BottomNavigationBarItem(icon: Icon(Icons.list), label: "List"),
+      ],
     );
   }
 
