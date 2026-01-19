@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
-import 'package:shopeazy/home_screen.dart';
+import 'package:shopxyzk/home_screen.dart';
 
 class StoreScreen extends StatefulWidget {
   const StoreScreen({super.key});
@@ -374,7 +374,7 @@ class _StoreScreenState extends State<StoreScreen> {
             );
           },
           child: Text(
-            "ShopEazy",
+            "ShopXYZK",
             style: TextStyle(
               fontSize: 24.0,
               fontWeight: FontWeight.bold,

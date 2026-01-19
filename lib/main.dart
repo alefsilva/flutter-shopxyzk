@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:shopeazy/home_screen.dart';
+import 'package:shopxyzk/home_screen.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(statusBarColor: Colors.black45),
   );
-  runApp(const ShopEazy());
+  runApp(const ShopXYZK());
 }
 
-class ShopEazy extends StatelessWidget {
-  const ShopEazy({super.key});
+class ShopXYZK extends StatelessWidget {
+  const ShopXYZK({super.key});
 
   @override
   Widget build(BuildContext context) {
