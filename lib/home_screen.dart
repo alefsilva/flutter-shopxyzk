@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shopeazy/store_screen.dart';
+import 'package:shopxyzk/store_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -30,7 +30,7 @@ class HomeScreen extends StatelessWidget {
                   child: Align(
                     alignment: Alignment.bottomCenter,
                     child: Text(
-                      "ShopEazy",
+                      "ShopXYZK",
                       style: TextStyle(
                         fontSize: 45,
                         fontWeight: FontWeight.bold,

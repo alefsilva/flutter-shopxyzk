@@ -1,12 +1,12 @@
-# 🛒 ShopEazy - Flutter E-commerce
+# 🛒 ShopXYZK - Flutter E-commerce
 
-O **ShopEazy** é uma aplicação de e-commerce moderna desenvolvida em Flutter que consome dados da [FakeStoreAPI](https://fakestoreapi.com/). O projeto foca em uma experiência de usuário fluida, oferecendo múltiplos modos de visualização de produtos e funcionalidades essenciais de compras.
+O **ShopXYZK** é uma aplicação de e-commerce moderna desenvolvida em Flutter que consome dados da [FakeStoreAPI](https://fakestoreapi.com/). O projeto foca em uma experiência de usuário fluida, oferecendo múltiplos modos de visualização de produtos e funcionalidades essenciais de compras.
 
 ## 🚀 Demonstração
 
 <ul>
-  <li><strong>Web:</strong> <a href="https://alefsilva.github.io/flutter-shopeazy/" target="_blank">Acesse aqui</a></li>
-  <li><strong>Android:</strong> <a href="https://github.com/alefsilva/flutter-shopeazy/releases" target="_blank">Baixe o APK na aba Releases</a></li>
+  <li><strong>Web:</strong> <a href="https://alefsilva.github.io/flutter-shopxyzk/" target="_blank">Acesse aqui</a></li>
+  <li><strong>Android:</strong> <a href="https://github.com/alefsilva/flutter-shopxyzk/releases" target="_blank">Baixe o APK na aba Releases</a></li>
 </ul>
 
 ## ✨ Funcionalidades
@@ -28,5 +28,5 @@ O **ShopEazy** é uma aplicação de e-commerce moderna desenvolvida em Flutter 
 
 1. Clone o repositório:
    ```bash
-   git clone [https://github.com/alefsilva/flutter-shopeazy.git](https://github.com/alefsilva/flutter-shopeazy.git)
+   git clone [https://github.com/alefsilva/flutter-shopxyzk.git](https://github.com/alefsilva/flutter-shopxyzk.git)
    ```
